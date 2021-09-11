@@ -2,7 +2,8 @@ const express = require('express')
 const app = express()
 const handlebars = require('express-handlebars')
 const bodyParser = require('body-parser') 
-var port = 8081 
+var port = 8081
+const Post = require('./models/Post') 
 
 
 // Config
@@ -19,11 +20,18 @@ app.get('/cad', function(req, res){
 })
 
 app.post('/add', function(req, res){
-    res.send("Texto: " + req.body.titulo + " Conteudo: " + req.body.conteudo)
+    Post.create({
+        titulo: req.body.titulo,
+        conteudo: req.body.conteudo
+    }).then(function(){
+        res.send("Post criado com sucesso!")
+    }).catch(function(erro){
+        res.send("Ocorreu um erro: " + erro)
+    })
 })
 
 
 app.listen(port, function(){
-   console.log("Servidor na porta:", port) 
+   console.log("Servidor rodando na porta:", port) 
 })
- 
+  

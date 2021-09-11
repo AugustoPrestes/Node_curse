@@ -32,14 +32,12 @@ const User = db.sequelize.define('usuarios', {
     //User.sync({force:true})
 
 db.sequelize.authenticate().then(function(){
-    console.log("Conectado com ssuceso")
+    console.log("Conectado com sucesso")
 }).catch(function(erro){
-    console.log("Nao foi possivel se conectar")
+    console.log("Nao foi possivel se conectar: " + erro)
 
 })
 
-module.exports = {
-    Post: Post,
-    User: User
-}
+module.exports = Post
  
+module.exports = User
