@@ -1,7 +1,7 @@
 const express = require('express')
 const app = express()
 const handlebars = require('express-handlebars')
-const Sequelize  = require('sequelize')
+const bodyParser = require('body-parser') 
 var port = 8081 
 
 
@@ -9,18 +9,18 @@ var port = 8081
     //Template Engine
     app.engine('handlebars', handlebars({defaultlayout: 'main'}))
     app.set('view engine', 'handlebars')
-    //Conexao com o banco de dados
-    const sequelize = new Sequelize('NOME DO BANCO', 'USUARIO', 'SENHA', {
-        host: "localhost",
-        dialect: "mysql"
-    })
+    //Body-parser
+    app.use(bodyParser.urlencoded({extended: false}))
+    app.use(bodyParser.json())
 
 //Rotas de site
 app.get('/cad', function(req, res){
     res.render('formulario')
 })
 
-
+app.post('/add', function(req, res){
+    res.send("Texto: " + req.body.titulo + " Conteudo: " + req.body.conteudo)
+})
 
 
 app.listen(port, function(){
