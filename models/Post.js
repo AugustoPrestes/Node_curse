@@ -7,8 +7,8 @@ const Post = db.sequelize.define('postagens', {
         type: db.Sequelize.STRING,
     },
     Conteudo: {
-        type: db.Sequelize.TEXT,
-    },
+        type: db.Sequelize.TEXT
+    }
 })
 
 //Model de Usuarios:
@@ -23,7 +23,7 @@ const User = db.sequelize.define('usuarios', {
         type: db.Sequelize.INTEGER,
     },
     Email: {
-        type: db.Sequelize.STRING,
+        type: db.Sequelize.STRING
     }
 })
 
@@ -40,4 +40,3 @@ db.sequelize.authenticate().then(function(){
 
 module.exports = Post
  
-module.exports = User

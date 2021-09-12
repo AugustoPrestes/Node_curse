@@ -15,20 +15,26 @@ const Post = require('./models/Post')
     app.use(bodyParser.json())
 
 //Rotas de site
+app.get('/', function(req, res){
+    res.render('home')
+})
+
 app.get('/cad', function(req, res){
     res.render('formulario')
 })
 
 app.post('/add', function(req, res){
     Post.create({
-        titulo: req.body.titulo,
-        conteudo: req.body.conteudo
+        conteudo: req.body.conteudo,
+        titulo: req.body.titulo
+        
     }).then(function(){
-        res.send("Post criado com sucesso!")
+        res.redirect('/')
     }).catch(function(erro){
         res.send("Ocorreu um erro: " + erro)
     })
 })
+
 
 
 app.listen(port, function(){
