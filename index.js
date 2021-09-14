@@ -16,6 +16,9 @@ const Post = require('./models/Post')
 
 //Rotas de site
 app.get('/', function(req, res){
+    Post.all().then(function(posts){
+        res.render('home', {posts: posts})
+    })
     res.render('home')
 })
 
@@ -25,9 +28,8 @@ app.get('/cad', function(req, res){
 
 app.post('/add', function(req, res){
     Post.create({
-        conteudo: req.body.conteudo,
-        titulo: req.body.titulo
-        
+        titulo: req.body.titulo,
+        conteudo: req.body.conteudo
     }).then(function(){
         res.redirect('/')
     }).catch(function(erro){
@@ -35,6 +37,13 @@ app.post('/add', function(req, res){
     })
 })
 
+app.get('/deletar/:id' ,function(req, res){
+    Post.destroy({where: {'id': req.params.id}}).then(function(){
+        res.send('Postagem deletada com Sucesso ')
+    }).catch(function(erro){
+        res.send("Não foi possivel deletar essa postagem devido ao erro: " + erro)
+    })
+})
 
 
 app.listen(port, function(){
